@@ -5,3 +5,6 @@ class SocialLink(models.Model):
     github_link = models.CharField(max_length=254, null=True)
     tweeter_link = models.CharField(max_length=254, null=True)
     facebook_link = models.CharField(max_length=254, null=True)
+
+    def __str__(self):
+        return self.linked_id

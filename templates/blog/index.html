@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% block title %}Blog{% endblock %}
+{% block body_block %}
+
+{% for p in blogs %}
+<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+    <figure>
+        <a href="single.html"><img src="/media/{{ p.articate_image }}" alt="Image" class="img-responsive"></a>
+    </figure>
+    <span class="fh5co-meta"><a href="single.html">{{ p.category.name }}</a></span>
+    <h2 class="fh5co-article-title"><a href="single.html">{{ p.title }}</a></h2>
+    <span class="fh5co-meta fh5co-date">{{ p.publish_date|date:'H M Y' }}</span>
+</article>
+{% endfor %}
+
+{% endblock %}

@@ -1,10 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body_block %}
+<!-- About-->
+<section class="resume-section" id="about">
+    <div class="resume-section-content">
+        <h1 class="mb-0">{{about.name}}</span></h1>
+        <div class="subheading mb-5">{{about.designation}}.<br>{{about.address}} · {{about.phone_number}} · <a
+                href="mailto:{{about.email}}">{{about.email}}</a><br>
+            <img id="optionalstuff" src="assets/img/profile.JPG" alt="no" height="100px" width="100px"/>
+        </div>
+        <p class="lead mb-5">{{about.objective}} </p>
+        <div class="social-icons">
+            <a class="social-icon" href="{{sociale.linked_id}}"><i
+                    class="fab fa-linkedin-in" target="_blank"></i></a>
+            <a class="social-icon" href="{{sociale.github_link}}" target="_blank"><i
+                class="fab fa-github"></i></a>
+            <a class="social-icon" href="{{sociale.tweeter_link}}" target="_blank"><i
+                class="fab fa-twitter"></i></a>
+            <a class="social-icon" href="{{sociale.facebook_link}}" target="_blank"><i
+                class="fab fa-facebook-f"></i></a>
+        </div>
+    </div>
+</section>
+<!-- Experience-->
+<section class="resume-section" id="experience">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Experience</h2>
+        {% for experience in experience%}
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{experience.position}}</h3>
+                <div class="subheading mb-3">{{experience.company_name}}</div>
+                <p>{{experience.job_description}}</p>
+            </div>
+            <div class="flex-shrink-0"><span class="text-primary">{{experience.from_date|date:'M Y'}} -
+                {% if experience.to_date %} {{experience.to_date|date:'M Y'}} {% else %} {% if experience.till_now %} Present {% endif %}  {% endif %}</span></div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+<hr class="m-0"/>
+<!-- Project-->
+<section class="resume-section" id="projects">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Projects</h2>
+        {% for project in project%}
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">1. {{project.project_name}} </h3>
+                <p>{{project.short_note}}</p>
+                {% if project.live_url %}
+                <a class="btn btn-success" href="{{project.live_url}}" target="_blank">Live Url</a>
+                {% endif %}
+            </div>
+            <div class="flex-shrink-0"><span class="text-primary">{{project.technologies}}</span></div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+<hr class="m-0"/>
+<!-- Education-->
+<section class="resume-section" id="education">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Education</h2>
+        {% for education in education%}
+        <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{education.institute}}</h3>
+                <div class="subheading mb-3">{{education.degree_name}}</div>
+                <div>{{education.subject_name}}</div>
+            </div>
+            <div class="flex-shrink-0"><span class="text-primary">{{education.from_date|date:'M Y'}} -
+                {% if education.to_date %}
+                {{education.to_date|date:'M Y'}}
+                {% else %}
+                {%if education.till_now %}
+                Present
+                {% endif %}
+                {% endif %}
+            </span></div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<hr class="m-0"/>
+<!-- Skills-->
+<section class="resume-section" id="skills">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Skills</h2>
+        <div class="subheading mb-3">Programming Languages & Tools</div>
+        <ul class="list-inline dev-icons">
+            <li class="list-inline-item"><i class="fab fa-php"></i></li>
+            <li class="list-inline-item"><i class="fab fa-laravel"></i></li>
+            <li class="list-inline-item"><i class="fab fa-python"></i></li>
+
+            <li class="list-inline-item"><i class="fab fa-html5"></i></li>
+            <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
+            <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
+            <li class="list-inline-item"><i class="fab fa-vuejs"></i></li>
+            <li class="list-inline-item"><i class="fab fa-docker"></i></li>
+        </ul>
+        <div class="subheading mb-3"></div>
+        <ul class="fa-ul mb-0">
+            <li>
+                <span class="fa-li"><i class="fas fa-check"></i></span>Back End Languages: {{skill.backend_language}}
+            </li>
+            <li>
+                <span class="fa-li"><i class="fas fa-check"></i></span>Back End Framework: {{skill.backend_framwork}}
+            </li>
+            <li>
+                <span class="fa-li"><i class="fas fa-check"></i></span>Database: {{skill.database}}
+            </li>
+            <li>
+                <span class="fa-li"><i class="fas fa-check"></i></span>Front End Languages: {{skill.frontend_language}}
+            </li>
+            <li>
+                <span class="fa-li"><i class="fas fa-check"></i></span>Front End Frameworks and Libraries: {{skill.frontend_framwork}}
+
+            </li>
+        </ul>
+    </div>
+</section>
+<hr class="m-0"/>
+<!-- Interests-->
+<section class="resume-section" id="interests">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Interests</h2>
+        <p>{{interest.interest}}</p>
+    </div>
+</section>
+<hr class="m-0"/>
+
+</section>
+{% endblock %}
