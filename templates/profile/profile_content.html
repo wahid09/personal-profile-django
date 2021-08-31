@@ -8,7 +8,7 @@
                 href="mailto:{{about.email}}">{{about.email}}</a><br>
             <img id="optionalstuff" src="assets/img/profile.JPG" alt="no" height="100px" width="100px"/>
         </div>
-        <p class="lead mb-5">{{about.objective}} </p>
+        <p class="lead mb-5">{{about.objective|safe}} </p>
         <div class="social-icons">
             <a class="social-icon" href="{{sociale.linked_id}}"><i
                     class="fab fa-linkedin-in" target="_blank"></i></a>
@@ -30,7 +30,7 @@
             <div class="flex-grow-1">
                 <h3 class="mb-0">{{experience.position}}</h3>
                 <div class="subheading mb-3">{{experience.company_name}}</div>
-                <p>{{experience.job_description}}</p>
+                <p>{{experience.job_description|safe}}</p>
             </div>
             <div class="flex-shrink-0"><span class="text-primary">{{experience.from_date|date:'M Y'}} -
                 {% if experience.to_date %} {{experience.to_date|date:'M Y'}} {% else %} {% if experience.till_now %} Present {% endif %}  {% endif %}</span></div>
@@ -48,7 +48,7 @@
         <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
             <div class="flex-grow-1">
                 <h3 class="mb-0">1. {{project.project_name}} </h3>
-                <p>{{project.short_note}}</p>
+                <p>{{project.short_note|safe}}</p>
                 {% if project.live_url %}
                 <a class="btn btn-success" href="{{project.live_url}}" target="_blank">Live Url</a>
                 {% endif %}
@@ -127,7 +127,7 @@
 <section class="resume-section" id="interests">
     <div class="resume-section-content">
         <h2 class="mb-5">Interests</h2>
-        <p>{{interest.interest}}</p>
+        <p>{{interest.interest|safe}}</p>
     </div>
 </section>
 <hr class="m-0"/>
