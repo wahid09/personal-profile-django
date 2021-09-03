@@ -14,4 +14,4 @@ def getauthor(request, name):
     return render(request, 'blog/profile.html')
 
 def getsingle(request, id):
-    return render(request, 'single.html')
+    return render(request, 'blog/single.html')

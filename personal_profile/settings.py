@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'about',
     'Login_App',
     'Blog_App',
-    'ckeditor'
+    'ckeditor',
+    'stdimage'
 ]
 
 MIDDLEWARE = [

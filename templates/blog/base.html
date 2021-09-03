@@ -34,27 +34,11 @@
     <!-- Animate -->
     <link rel="stylesheet" href="{% static 'blog/css/animate.css' %}">
     <!-- Icomoon -->
-    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %} ">
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="{% static 'blog/css/bootstrap.css' %}">
 
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
-    <style>
-        #fh5co-offcanvas .fh5co-close-offcanvas {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    width: 61px;
-    overflow: hidden;
-    color: #cccccc;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-}
-
-
-    </style>
     {% block css %}
     {% endblock %}
 
@@ -64,7 +48,15 @@
     <!--[if lt IE 9]-->
     <script src="{% static 'blog/js/respond.min.js' %}"></script>
     <!--[endif]-->
-
+<style type="text/css">
+		#fh5co-offcanvas {
+    width: auto;
+}
+#fh5co-offcanvas .fh5co-menu, #fh5co-offcanvas .fh5co-bio {
+    width: auto;
+    padding: 50px;
+}
+	</style>
 </head>
 <body>
 <div id="fh5co-offcanvas">
@@ -107,7 +99,7 @@
                 <li><a href="#"><i class="icon-instagram"></i></a></li>
             </ul>
             <div class="col-lg-12 col-md-12 text-center">
-                <h1 id="fh5co-logo"><a href="index.html">Emily Tran Le</a></h1>
+                <h1 id="fh5co-logo"><a href="index.html">Learn The Right Way</a></h1>
             </div>
 
         </div>
