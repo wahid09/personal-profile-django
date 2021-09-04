@@ -7,11 +7,11 @@
     <figure>
         <!--<a href="single.html"><img src="/media/{{ p.articate_image }}" alt="Image" class="img-responsive"></a>-->
         {% if p.articate_image %}
-        <a href="single.html"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image" class="img-responsive"></a>
+        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image" class="img-responsive"></a>
         {% endif %}
     </figure>
-    <span class="fh5co-meta"><a href="single.html">{{ p.category.name }}</a></span>
-    <h2 class="fh5co-article-title"><a href="single.html">{{ p.title|truncatechars:50 }}</a></h2>
+    <span class="fh5co-meta"><a href="{% url 'Blog_App:category_post' name=p.category.name %}">{{ p.category.name }}</a></span>
+    <h2 class="fh5co-article-title"><a href="{% url 'Blog_App:single_post' id=p.id %}">{{ p.title|truncatechars:50 }}</a></h2>
     <span class="fh5co-meta fh5co-date">{{ p.publish_date|date:'H M Y' }}</span>
 </article>
 {% endfor %}

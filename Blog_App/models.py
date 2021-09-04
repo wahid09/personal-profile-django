@@ -19,6 +19,7 @@ def validate_image(image):
 class Author(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE)
     details = RichTextField(blank=True, null=True)
+    author_image = StdImageField(upload_to='author_images/%Y/%m/', variations={'thumbnail': {'width': 100, 'height': 75}})
     active = models.BooleanField(default=False)
     def __str__(self):
         return self.name.username
@@ -36,7 +37,7 @@ class Article(models.Model):
     body = RichTextField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     articate_image = StdImageField(upload_to='blog_images/%Y/%m/', variations={
-        'large': (600, 400),
+        'large': (1200, 600),
         'thumbnail': (500, 300, True),
     }, delete_orphans=True)
     publish_date = models.DateTimeField(auto_now_add=True, auto_now=False)
