@@ -25,6 +25,8 @@
 {% if post.id < last.id %}
 <a href="{% url 'Blog_App:single_post' id=post.id|add:'+1' %}" class="fh5co-post-next"><span>Next <i class="icon-chevron-right"></i></span></a>
 {% endif %}
+<div class="container-fluid">
+		<div class="row fh5co-post-entry single-entry">
 <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
 				<figure class="animate-box justify-content-center">
 					<img src="{{ post.articate_image.large.url}}" alt="Image" class="img-responsive">
@@ -41,4 +43,19 @@
 					</div>
 				</div>
 			</article>
+</div>
+</div>
+<div class="container">
+	<h3 class="well">Related Post</h3>
+	<div class="row">
+		{% for post in related %}
+		<div class="col-md-3">
+			<a href="{% url 'Blog_App:single_post' id=post.id %}"><figure class="animate-box justify-content-center">
+					<img src="{{ post.articate_image.thumbnail.url}}" alt="Image" class="img-responsive">
+				</figure></a>
+				<h4 class="fh5co-article-title animate-box"><a href="{% url 'Blog_App:single_post' id=post.id %}">{{ post.title|truncatechars:25}}</a></h4>
+		</div>
+		{% endfor %}
+	</div>
+</div>
 {% endblock %}
