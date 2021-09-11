@@ -129,3 +129,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDIA_DIR
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+LOGIN_URL = '/blog/login'

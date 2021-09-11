@@ -9,9 +9,9 @@
                 <li><a href="{% url 'Blog_App:category_post' name=cat.name %}">{{ cat.name }}</a></li>
                 {% endfor %}
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'Blog_App:logout' %}">Logout</a></li>
+                <li><a href="{% url 'Login_App:logout' %}">Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'Blog_App:login' %}">Login</a></li>
+                <li><a href="{% url 'Login_App:login' %}">Login</a></li>
                 {% endif %}
             </ul>
         </div>
