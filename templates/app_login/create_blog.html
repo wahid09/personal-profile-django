@@ -1,0 +1,205 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Blog{% endblock %}
+{% block css %}
+<style>
+    .profile_menu.active {
+    transform: scale(1.03);
+    background: linear-gradient(to right,rgba(8,179,141,0.05),rgba(56,105,168,0.05));
+}
+.profile_menu:nth-child(1) {
+    border-radius: 4px 4px 0 0;
+}
+.profile_menu {
+    margin: 2px;
+    padding: 22px 10px 22px 20px;
+    border: solid 1px rgba(44,134,143,0.25);
+    border-top: 0;
+    cursor: pointer;
+    transition: all .3s;
+    position: relative;
+    z-index: 1000;
+    overflow: hidden;
+}
+.profile_menu i {
+    color: #2c868f;
+    font-size: 1.5rem;
+}
+.profile_menu span {
+    color: #236c98;
+    font-size: 1.05em;
+}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  z-index: 2;
+  color: #fff;
+  background-color: linear-gradient(to right,rgba(8,179,141,0.05),rgba(56,105,168,0.05));
+  border-color: linear-gradient(to right,rgba(8,179,141,0.05),rgba(56,105,168,0.05));
+}
+.top_line {
+    width: 100%;
+    height: 4px;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right,#08b38d,#3869a8);
+    position: absolute;
+    top: 0;
+    left: -0px;
+}
+.panel-default > .panel-heading {
+    color: #333333;
+    background: linear-gradient(to right,#08b38d,#3869a8);
+    border-color: #ddd;
+}
+.image_holder {
+    box-shadow: 0 1px 8px 0 rgb(44 134 143 / 30%);
+    position: relative;
+}
+.image_holder p {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right,#08b38d,#3869a8);
+}
+.bottom-line {
+    width: 10%;
+    height: 2px;
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+}
+.left-line {
+    width: 2px;
+    height: 10%;
+    position: absolute;
+    top: 0;
+    left: -2px;
+}
+.right-line {
+    width: 2px;
+    height: 10%;
+    position: absolute;
+    bottom: 0;
+    right: -2px;
+}
+.profile_image {
+    width: 100%;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+.avatar_holder {
+    color: #145a82;
+    margin: 20px;
+    padding: 4px 8px !important;
+    border-radius: 4px;
+    background: white !important;
+    box-shadow: 0 1px 4px 0 rgb(30 130 168 / 50%);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+.avatar_holder {
+    color: #145a82;
+    margin: 20px;
+    padding: 4px 8px !important;
+    border-radius: 4px;
+    background: white !important;
+    box-shadow: 0 1px 4px 0 rgb(30 130 168 / 50%);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+.profile_details_holder {
+    width: 90%;
+    margin-left: 10%;
+    font-size: 1em;
+    line-height: 2.1;
+    color: #295f9a;
+}
+.icon_column {
+    width: 10%;
+    text-align: center;
+}
+.top-line {
+    width: 10%;
+    height: 2px;
+    position: absolute;
+    top: -2px;
+    left: 0;
+}
+.detailsPan {
+    color: #295f9a !important;
+}
+.text-right {
+    text-align: right !important;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+[type=reset], [type=submit], button, html [type=button] {
+    -webkit-appearance: button;
+}
+.edit-password, .edit-button, .edit-password:hover, .edit-button:hover, .edit-password:focus, .edit-button:focus {
+    font-size: .95em;
+}
+.blog_button, .blog_button:hover, .blog_button:focus {
+    color: white;
+    padding: 8px 30px;
+    border-radius: 30px;
+    font-size: 1em;
+    background: linear-gradient(to right,#08b38d,#3869a8);
+    text-transform: lowercase;
+}
+.profile_div {
+    margin: 8px;
+    margin-top: 0;
+    padding: 10px;
+    box-shadow: 0 1px 8px 0 rgb(44 134 143 / 30%);
+}
+
+
+
+
+
+
+
+</style>
+{% endblock %}
+{% block body_block %}
+<div class="container-fluid" style="z-index:100;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "app_login/profile_sidebar.html" %}
+                </div>
+                <div class="col-md-9">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Write Article
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <div class="profile_div">
+                                        <form method="POST" ENCTYPE="multipart/form-data">
+                                            {{form|crispy}}
+                                            {% csrf_token %}
+                                            {{ form.media }}
+                                            <button type="submit" class="btn btn-success btn-sm">Publish</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

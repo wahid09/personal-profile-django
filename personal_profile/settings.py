@@ -34,8 +34,12 @@ INSTALLED_APPS = [
     'Login_App',
     'Blog_App',
     'ckeditor',
+    'ckeditor_uploader',
     'stdimage'
 ]
+
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

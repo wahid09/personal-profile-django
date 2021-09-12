@@ -2,63 +2,44 @@
 {% block title %}Blog{% endblock %}
 {% block category %}
 <div class="fh5co-menu">
-        <div class="fh5co-box">
-            <h3 class="heading">Menu</h3>
-            <ul>
-                {% for cat in categories %}
-                <li><a href="{% url 'Blog_App:category_post' name=cat.name %}">{{ cat.name }}</a></li>
-                {% endfor %}
-                {% if request.user.is_authenticated %}
-                <li><a href="{% url 'Login_App:logout' %}">Logout</a></li>
-                {% else %}
-                <li><a href="{% url 'Login_App:login' %}">Login</a></li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="fh5co-box">
-            <h3 class="heading">Search</h3>
-            <form action="" method="GET">
-                <div class="form-group">
-                    <input type="text" name="search" class="form-control" placeholder="Type a keyword" value="{{ request.GET.search}}">
-                </div>
-            </form>
-        </div>
+    <div class="fh5co-box">
+        <h3 class="heading">Menu</h3>
+        <ul>
+            {% for cat in categories %}
+            <li><a href="{% url 'Blog_App:category_post' name=cat.name %}">{{ cat.name }}</a></li>
+            {% endfor %}
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'Login_App:user_account' %}">User Profile</a></li>
+            <li><a href="{% url 'Login_App:logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'Login_App:login' %}">Login</a></li>
+            {% endif %}
+        </ul>
     </div>
+    <div class="fh5co-box">
+        <h3 class="heading">Search</h3>
+        <form action="" method="GET">
+            <div class="form-group">
+                <input type="text" name="search" class="form-control" placeholder="Type a keyword"
+                       value="{{ request.GET.search}}">
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 {% block body_block %}
-
 {% for p in blogs %}
 <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
     <figure>
-        <!--<a href="single.html"><img src="/media/{{ p.articate_image }}" alt="Image" class="img-responsive"></a>-->
         {% if p.articate_image %}
-        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image" class="img-responsive"></a>
+        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image"
+                                                                class="img-responsive"></a>
+        <span class="fh5co-meta"><a href="{% url 'Blog_App:category_post' name=p.category.name %}">{{ p.category.name }}</a></span>
+        <h4 class="fh5co-article-title"><a href="{% url 'Blog_App:single_post' id=p.id %}">{{ p.title|truncatechars:50 }}</a></h4>
+        <h5><span>Created By: </span>&nbsp;<a href="{% url 'Blog_App:post_author' name=p.author %}">{{p.author}}</a></h5>
+        <span class="fh5co-meta fh5co-date">{{ p.publish_date|date:'H M Y' }}</span>
         {% endif %}
     </figure>
-    <span class="fh5co-meta"><a href="{% url 'Blog_App:category_post' name=p.category.name %}">{{ p.category.name }}</a></span>
-    <h4 class="fh5co-article-title"><a href="{% url 'Blog_App:single_post' id=p.id %}">{{ p.title|truncatechars:50 }}</a></h4>
-    <h5><span>Created By: </span>&nbsp;<a href="{% url 'Blog_App:author' name=p.article_author.name.username %}">{{p.article_author.name}}</a></h5>
-    <span class="fh5co-meta fh5co-date">{{ p.publish_date|date:'H M Y' }}</span>
 </article>
 {% endfor %}
-<div class="container">
-    <div class="pagination">
-    <span class="step-links">
-        {% if blogs.has_previous %}
-            <a href="?p=1">&laquo; first</a>
-            <a href="?p={{ blogs.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
-        </span>
-
-        {% if blogs.has_next %}
-            <a href="?p={{ blogs.next_page_number }}">next</a>
-            <a href="?p={{ blogs.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-</div>
-
 {% endblock %}

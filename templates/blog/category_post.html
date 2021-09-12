@@ -2,23 +2,23 @@
 {% block title %}Blog-category post{% endblock %}
 {% block category %}
 <div class="fh5co-menu">
-        <div class="fh5co-box">
-            <h3 class="heading">Menu</h3>
-            <ul>
-                {% for cat in categories %}
-                <li><a href="{% url 'Blog_App:category_post' name=cat.name %}">{{ cat.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="fh5co-box">
-            <h3 class="heading">Search</h3>
-            <form action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Type a keyword">
-                </div>
-            </form>
-        </div>
+    <div class="fh5co-box">
+        <h3 class="heading">Menu</h3>
+        <ul>
+            {% for cat in categories %}
+            <li><a href="{% url 'Blog_App:category_post' name=cat.name %}">{{ cat.name }}</a></li>
+            {% endfor %}
+        </ul>
     </div>
+    <div class="fh5co-box">
+        <h3 class="heading">Search</h3>
+        <form action="#">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Type a keyword">
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
 {% block body_block %}
 
@@ -27,7 +27,8 @@
     <figure>
         <!--<a href="single.html"><img src="/media/{{ p.articate_image }}" alt="Image" class="img-responsive"></a>-->
         {% if p.articate_image %}
-        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image" class="img-responsive"></a>
+        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image"
+                                                                class="img-responsive"></a>
         {% endif %}
     </figure>
     <span class="fh5co-meta"><a href="{% url 'Blog_App:category_post' name=p.category.name %}">{{ p.category.name }}</a></span>
@@ -37,7 +38,9 @@
 {% endfor %}
 
 <div class="container">
-    <div class="pagination">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pagination">
     <span class="step-links">
         {% if posts.has_previous %}
             <a href="?p=1">&laquo; first</a>
@@ -53,7 +56,9 @@
             <a href="?p={{ posts.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

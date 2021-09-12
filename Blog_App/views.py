@@ -1,21 +1,20 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse, get_object_or_404, redirect
 from Blog_App.models import Article, Author, Category
-#from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-#from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib import messages
-#from django.urls import reverse
-#from django.contrib.auth.decorators import login_required
-#from Blog_App.forms import SignUpForm
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, View, TemplateView
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+import uuid
 
 
 # Create your views here.
 
 def index(request):
     blogs = Article.objects.all()
-    # Search
+    #Search
     search = request.GET.get('search')
     if search:
         blogs = blogs.filter(
@@ -37,21 +36,23 @@ def index(request):
 
 def getauthor(request, name):
     author = get_object_or_404(User, username=name)
-    auth = get_object_or_404(Author, name=author.id)
-    posts = Article.objects.filter(article_author=auth.id)
+    posts = Article.objects.filter(author=author)
+    #print(author.post_author.username)
 
     paginator = Paginator(posts, 12)  # Show 25 contacts per page.
     page_number = request.GET.get('p')
     posts = paginator.get_page(page_number)
     context = {
-        "auth": auth,
+        "auth": author,
         "posts": posts
     }
+    #print(author.email)
     return render(request, 'blog/profile.html', context)
 
 
 def getsingle(request, id):
     post = get_object_or_404(Article, pk=id)
+    print(post.title)
     first = Article.objects.first()
     last = Article.objects.last()
     related_post = Article.objects.filter(category=post.category).exclude(id=id)[:4]
@@ -79,6 +80,20 @@ def categoryPost(request, name):
         "categories": categories
     }
     return render(request, "blog/category_post.html", context)
+
+class CreateBlog(LoginRequiredMixin, CreateView):
+    model = Article
+    template_name = 'app_login/create_blog.html'
+    fields = ('title', 'body', 'category', 'articate_image', 'active')
+
+    def form_valid(self, form):
+        article_obj = form.save(commit=False)
+        article_obj.author = self.request.user
+        title = article_obj.title
+        article_obj.slug = title.replace(" ", "-") + "-" + str(uuid.uuid4())
+
+        article_obj.save()
+        return HttpResponseRedirect(reverse('Blog_App:index'))
 
 
 # def getLogin(request):

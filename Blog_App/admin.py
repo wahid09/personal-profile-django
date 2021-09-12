@@ -18,9 +18,9 @@ class categoryModle(admin.ModelAdmin):
 admin.site.register(Category, categoryModle)
 
 class articleModel(admin.ModelAdmin):
-    list_display = ['__str__', 'article_author', 'category', 'articate_image', 'publish_date', 'update_date', 'active']
+    list_display = ['__str__', 'author', 'category', 'articate_image', 'publish_date', 'update_date', 'active']
     search_fields = ['__str__', 'title', 'body', 'category']
-    list_filter = ['category', 'article_author', 'publish_date']
+    list_filter = ['category', 'author', 'publish_date']
     list_per_page = 15
     list_max_show_all = 50
     class Meta:

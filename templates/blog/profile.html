@@ -6,11 +6,12 @@
 {% block profile %}
 <div class="fh5co-bio">
     <figure>
-        <img src="{{ auth.author_image.url }}" alt="{{ auth.name }}" class="img-responsive">
+        <img src="{{ auth.user_profile.profile_pic.url }}" alt="{{ auth }}" class="img-responsive">
     </figure>
     <h3 class="heading">About Me</h3>
-    <h4>{{ auth.name }}</h4>
-    <p>{{ auth.details|safe }}</p>
+    <h4>{{ auth }}</h4>
+    <p>{{ auth.email }}</p>
+    <p>{{ auth.user_profile.about|safe }}</p>
     <ul class="fh5co-social">
         <li><a href="#"><i class="icon-twitter"></i></a></li>
         <li><a href="#"><i class="icon-facebook"></i></a></li>
@@ -24,7 +25,8 @@
     <figure>
         <!--<a href="single.html"><img src="/media/{{ p.articate_image }}" alt="Image" class="img-responsive"></a>-->
         {% if p.articate_image %}
-        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image" class="img-responsive"></a>
+        <a href="{% url 'Blog_App:single_post' id=p.id %}"><img src="{{ p.articate_image.thumbnail.url }}" alt="Image"
+                                                                class="img-responsive"></a>
         {% endif %}
     </figure>
     <span class="fh5co-meta"><a href="{% url 'Blog_App:category_post' name=p.category.name %}">{{ p.category.name }}</a></span>
@@ -33,7 +35,9 @@
 </article>
 {% endfor %}
 <div class="container">
-    <div class="pagination">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pagination">
     <span class="step-links">
         {% if posts.has_previous %}
             <a href="?p=1">&laquo; first</a>
@@ -49,6 +53,8 @@
             <a href="?p={{ posts.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

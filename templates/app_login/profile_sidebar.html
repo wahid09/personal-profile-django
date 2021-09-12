@@ -1,10 +1,13 @@
 <div class="list-group">
-    <a href="#" class="list-group-item profile_menu">
+    <a href="{% url 'Login_App:user_account' %}" class="list-group-item profile_menu">
         <p class="top_line"></p>
         <i class="fa fa-user"></i>
         <span>Profile</span>
     </a>
-    <a href="#" class="list-group-item profile_menu">Dapibus ac facilisis in</a>
+    <a href="{% url 'Blog_App:create_blog' %}" class="list-group-item profile_menu">
+       <i class="fa fa-pencil"></i>
+        <span> Write Article</span>
+    </a>
     <a href="#" class="list-group-item profile_menu">Morbi leo risus</a>
     <a href="#" class="list-group-item profile_menu">Porta ac consectetur ac</a>
     <a href="#" class="list-group-item profile_menu">Vestibulum at eros</a>
