@@ -34,10 +34,10 @@ class Category(models.Model):
 
 class Article(models.Model):
     PUBLISH_STATUS = (
-        (0, 'Draft'),
-        (1, 'Pending'),
-        (2, 'On Review'),
-        (3, 'Publish'),
+        ('0', 'Draft'),
+        ('1', 'Pending'),
+        ('2', 'On Review'),
+        ('3', 'Publish'),
     )
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_author')
     title = models.CharField(max_length=254, verbose_name="Title")
@@ -50,7 +50,7 @@ class Article(models.Model):
     }, delete_orphans=True, verbose_name="Article Image")
     publish_date = models.DateTimeField(auto_now_add=True, auto_now=False)
     update_date = models.DateTimeField(auto_now=True, auto_now_add=False)
-    publish_status = models.CharField(max_length=1, choices=PUBLISH_STATUS, verbose_name="Publication Status", default=0)
+    publish_status = models.CharField(max_length=1, choices=PUBLISH_STATUS, verbose_name="Publication Status", default='0')
     active = models.BooleanField(default=False, verbose_name="Status")
     def __str__(self):
         return self.title

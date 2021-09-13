@@ -5,10 +5,13 @@
         <span>Profile</span>
     </a>
     <a href="{% url 'Blog_App:create_blog' %}" class="list-group-item profile_menu">
-       <i class="fa fa-pencil"></i>
-        <span> Write Article</span>
+       <i class="fa fa-edit"></i>
+        <span> Write a New Article</span>
     </a>
-    <a href="#" class="list-group-item profile_menu">Morbi leo risus</a>
+    <a href="{% url 'Blog_App:my_blog' %}" class="list-group-item profile_menu">
+        <i class="fa fa-pencil"></i>
+        <span> My Article</span>
+    </a>
     <a href="#" class="list-group-item profile_menu">Porta ac consectetur ac</a>
     <a href="#" class="list-group-item profile_menu">Vestibulum at eros</a>
 </div>

@@ -11,10 +11,13 @@ import uuid
 
 
 # Create your views here.
+class MyPost(LoginRequiredMixin, TemplateView):
+    template_name = 'app_login/my_post.html'
+
 
 def index(request):
-    blogs = Article.objects.all()
-    #Search
+    blogs = Article.objects.filter(publish_status=3).order_by('-id')
+    # Search
     search = request.GET.get('search')
     if search:
         blogs = blogs.filter(
@@ -36,8 +39,8 @@ def index(request):
 
 def getauthor(request, name):
     author = get_object_or_404(User, username=name)
-    posts = Article.objects.filter(author=author)
-    #print(author.post_author.username)
+    posts = Article.objects.filter(author=author, publish_status=3)
+    # print(author.post_author.username)
 
     paginator = Paginator(posts, 12)  # Show 25 contacts per page.
     page_number = request.GET.get('p')
@@ -46,16 +49,15 @@ def getauthor(request, name):
         "auth": author,
         "posts": posts
     }
-    #print(author.email)
+    # print(author.email)
     return render(request, 'blog/profile.html', context)
 
 
 def getsingle(request, id):
-    post = get_object_or_404(Article, pk=id)
-    print(post.title)
+    post = get_object_or_404(Article, pk=id, publish_status=3)
     first = Article.objects.first()
     last = Article.objects.last()
-    related_post = Article.objects.filter(category=post.category).exclude(id=id)[:4]
+    related_post = Article.objects.filter(category=post.category, publish_status=3).exclude(id=id)[:4]
     context = {
         "post": post,
         "first": first,
@@ -67,7 +69,7 @@ def getsingle(request, id):
 
 def categoryPost(request, name):
     category = get_object_or_404(Category, name=name)
-    posts = Article.objects.filter(category=category.id)
+    posts = Article.objects.filter(category=category.id, publish_status=3)
 
     paginator = Paginator(posts, 12)  # Show 25 contacts per page.
     page_number = request.GET.get('p')
@@ -80,6 +82,7 @@ def categoryPost(request, name):
         "categories": categories
     }
     return render(request, "blog/category_post.html", context)
+
 
 class CreateBlog(LoginRequiredMixin, CreateView):
     model = Article
@@ -94,7 +97,6 @@ class CreateBlog(LoginRequiredMixin, CreateView):
 
         article_obj.save()
         return HttpResponseRedirect(reverse('Blog_App:index'))
-
 
 # def getLogin(request):
 #     if request.user.is_authenticated:
