@@ -155,11 +155,6 @@ img {
 
 
 
-
-
-
-
-
 </style>
 {% endblock %}
 {% block body_block %}
@@ -208,7 +203,15 @@ img {
                                                     {% endif %}
                                                 </td>
                                                 <td>
+                                                    <!--<button class="btn"-->
+                                                    <!--data-toggle="modal" data-target="#largeShoes">-->
+                                                    <!--<a href="{% url 'Blog_App:blog_details' slug=blog.slug %}"><i-->
+                                                    <!--class="fa fa-eye"></i></a>-->
+                                                    <a class="btn detailView" data-id={{ blog.slug }}><i
+                                                            class="fa fa-eye"></i></a>
+                                                    <!--</button>-->
                                                     <a href="" class="btn"><i class="fa fa-edit"></i></a>
+                                                    <a href="" class="btn"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             {% endfor %}
@@ -226,4 +229,47 @@ img {
     </div>
 </div>
 </div>
+<!-- Modal -->
+<!-- The modal -->
+<div class="modal" id="largeShoes" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelLarge">Modal Title</h4>
+            </div>
+
+            <div class="modal-body">
+                {{article.title}}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    function openModal(){
+
+    $('.modal').modal();
+}
+$(document).on('click','.detailView',function(){
+    $('.modal').modal();
+    const dataId = $(this).data("id");
+    $.ajax({
+        url: '/blog/article-detail/'+dataId,
+        dataType: 'json',
+        success: function (data) {
+          console.log(data)
+        }
+      });
+});
+
+
+
+</script>
 {% endblock %}

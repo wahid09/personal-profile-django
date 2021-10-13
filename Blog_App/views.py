@@ -3,16 +3,30 @@ from Blog_App.models import Article, Author, Category
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, View, TemplateView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, View, TemplateView, DetailView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
+from django.utils import timezone
+from unidecode import unidecode
+from django.template import defaultfilters
 
 
 # Create your views here.
 class MyPost(LoginRequiredMixin, TemplateView):
     template_name = 'app_login/my_post.html'
+
+
+@login_required()
+def article_detail_view(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+    return article
+    print(article)
+    context = {
+        'article': article
+    }
+    return render(request, 'app_login/my_post.html', context)
 
 
 def index(request):
@@ -93,7 +107,8 @@ class CreateBlog(LoginRequiredMixin, CreateView):
         article_obj = form.save(commit=False)
         article_obj.author = self.request.user
         title = article_obj.title
-        article_obj.slug = title.replace(" ", "-") + "-" + str(uuid.uuid4())
+        article_obj.slug = defaultfilters.slugify(unidecode(title))
+        #article_obj.slug = title.replace(" ", "-") + "-" + str(uuid.uuid4())
 
         article_obj.save()
         return HttpResponseRedirect(reverse('Blog_App:index'))

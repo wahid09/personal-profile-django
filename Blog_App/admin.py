@@ -18,6 +18,7 @@ class categoryModle(admin.ModelAdmin):
 admin.site.register(Category, categoryModle)
 
 class articleModel(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title', )}
     list_display = ['__str__', 'author', 'category', 'articate_image', 'publish_date', 'update_date', 'active']
     search_fields = ['__str__', 'title', 'body', 'category']
     list_filter = ['category', 'author', 'publish_date']
